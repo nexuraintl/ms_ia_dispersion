@@ -1,3 +1,4 @@
+
 import mysql.connector
 import time
 from flask import Flask, request, jsonify
@@ -39,7 +40,21 @@ def insert_dispersion():
 def health_check():
     return jsonify({'status': 'API OK'}), 200
 
-if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=8080)
+@app.route("/health")
+def health():
+    return jsonify({
+        "status": "UP"
+    }), 200
 
+
+@app.route("/version")
+def version():
+    return jsonify({
+        "service": "ms_ia_dispersion",
+        "version": "1.0.0"
+    }), 200
+
+
+if __name__ == "__main__":
+    app.run(debug=True, host='0.0.0.0', port=8080)
 
